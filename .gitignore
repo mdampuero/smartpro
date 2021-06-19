@@ -1,0 +1,4 @@
+/www/public/files/*
+/www/application/configs/application.ini
+.DS_Store
+/db/working/*
