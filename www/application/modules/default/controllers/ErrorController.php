@@ -3,7 +3,7 @@
 class ErrorController extends Zend_Controller_Action {
 
     public function init() {
-        Zend_Layout::startMvc(array('layout' => 'error', 'layoutPath' => '../application/modules/default/layouts/scripts/'));
+        Zend_Layout::startMvc(array('layout' => 'default', 'layoutPath' => '../application/modules/default/layouts/scripts/'));
         $this->_redirector = $this->_helper->getHelper('Redirector');
     }
 
@@ -50,6 +50,7 @@ class ErrorController extends Zend_Controller_Action {
         if ($this->getInvokeArg('displayExceptions') == true) {
             $this->view->exception = $errors->exception;
         }
+        $this->view->code = $this->getResponse()->getHttpResponseCode();
 
         $this->view->request = $errors->request;
 //        EXIT(APPLICATION_PATH.DS."modules".DS.$this->view->parameters["module"].DS."views".DS."scripts".DS."error/error");

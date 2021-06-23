@@ -1,0 +1,11 @@
+<script>
+    var urlApi='<?php echo $this->url(['module'=>'api','controller'=>'productors']);?>';
+    function after200(){ 
+        location.href='<?php echo $this->url(['module'=>'admin','controller'=>'productors'],null,true);?> ';    
+    }
+    function preRequest() {
+        return {
+            pr_id:<?php echo (int)$this->parameters['id']?>
+        }
+    }
+</script>

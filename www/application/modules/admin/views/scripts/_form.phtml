@@ -8,7 +8,7 @@
         <?php } ?>
     </blockquote>
     <form id="form" method="post" novalidate enctype="multipart/form-data">
-
+        <div class="row">
         <input type="hidden" name="token" value="<?php echo $this->token; ?>">
         <!--<div class="row hidden-print">-->
             <?php
@@ -127,7 +127,6 @@
                     });
                 </script>
                 <div class="form-group col-lg-12" >
-                    <div class="row">
                         <div class="panel panel-default" id="pasteTarget">
                             <div class="panel-heading">
                                 <?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?>
@@ -194,7 +193,6 @@
                                     ?>
                                 </div>
                             </div>
-                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <?php
@@ -348,7 +346,7 @@
                             endif;
                         endforeach;
                         ?>
-                        <!--</div>-->
+                        </div>
                         <div class="btn-group hidden-print">
                             <?php if ($this->parameters["action"] == "detail") { ?>
                             <button type="button" class="btn btn-info" onclick="location.href = '<?php echo $this->url(array('module' => $this->parameters['module'], 'controller' => $this->parameters['controller'], 'action' => 'edit', 'id' => $this->result[$this->fields[0]["field"]]), '', true) ?>'" >Editar</button>
@@ -360,6 +358,7 @@
                             <?php } ?>
                         </div>
                     </form>
+                    
                 </div>
                 <script>
                     $(function() {

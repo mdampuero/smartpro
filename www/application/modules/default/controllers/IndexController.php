@@ -6,9 +6,17 @@
  * E-Mail: mdampuero@gmail.com
  */
 
-class IndexController extends Zend_Controller_Action {
+require_once 'BaseController.php';
 
-    public function init() {
-        $this->_redirect('/admin/login');
+class IndexController extends BaseController {
+
+    public function init(){
+        parent::init();
+        $this->view->login = $this->_helper->Login->isLoginPublic(true);
     }
+    
+    public function indexAction() {
+        
+    }
+
 }

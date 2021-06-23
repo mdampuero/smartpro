@@ -1,0 +1,93 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script> 
+<script>
+    var loading={
+        show: function (){
+            $("div.loading").fadeIn();
+            return true;
+        },
+        hide: function (){
+            $("div.loading").fadeOut();
+            return true;
+        }
+    }
+    var options = {
+        dataType:'json',
+        beforeSubmit: beforeSubmit
+    };
+    function beforeSubmit(formData, form, options) {
+        loading.show();
+        form.closest('form').find(':submit').attr('disabled',true);
+        var inputs=form.closest('form').find(':input:not(.dropify)');
+        inputs.removeClass('is-invalid');
+        inputs.next('small').html('');
+
+		var data=preRequest();
+		for (var i = formData.length - 1; i >= 0; i--) {
+            data[formData[i].name]=formData[i].value;
+        }
+        $.ajax({
+            url: urlApi,
+            type: ($('input[name="_method"]').length>0)?$('input[name="_method"]').val():form.attr("method").toUpperCase(),
+            data:JSON.stringify(data),
+            contentType: "application/json",
+            crossDomain: true,
+            success: function(data) {
+                after200(data);
+            },  
+            complete:function(){
+                form.closest('form').find(':submit').attr('disabled',false);
+            },
+            error: function(data, status, error) {
+                loading.hide();
+				if(data.status==400){
+					after400(JSON.parse(data.responseText));
+				}else if(data.status == 404){
+					after404();
+				}else if(data.status == 403){
+					after403();
+				}else if(data.status == 500){
+					after500();
+				}
+			}
+        });
+        return false;
+    }
+    function preRequest(){ return {}}
+    function after200(){ loading.hide(); return; }
+    function after400(data){ 
+        var text='';
+        for(i=0; i<data.data.length; i++){
+            const item=data.data[i];
+            text+=item.message+'<br/>';
+            input=$("#"+item.property);
+            input.after('<small class="text-danger">'+item.message+'</small>');
+            input.addClass("is-invalid");
+
+        }
+        $.toast({
+            heading: 'UPS!',
+            text: 'Ocurrió un error',
+            position: 'top-right',
+            icon: 'error',
+            hideAfter: 3000, 
+            stack: 6
+        });
+        return; 
+    }
+    function after401(){ return; }
+    function after404(){ return; }
+    function after500(){ errorGeneral() }
+    function errorGeneral(){
+        $.toast({
+            heading: 'UPS!',
+            text: 'Ocurrió un error, intente en otro momento',
+            position: 'top-right',
+            icon: 'error',
+            hideAfter: 3000, 
+            stack: 6
+        });
+    }
+    $(function (){
+        $( "#form" ).ajaxForm(options);
+    });
+</script>

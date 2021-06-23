@@ -35,6 +35,13 @@
             </a>
         </li>
     <?php endif; ?>
+    <?php if (!@in_array('productors', $this->loginInfo["accessRestring"]["controllers"])): ?>
+        <li>
+            <a <?php echo("productors" == $this->parameters["controller"]) ? "class='active'" : ""; ?> href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'productors', 'action' => 'index'), '', true); ?>">
+                <i class="fa fa-unlock-alt fa-fw"></i> Productores de seguro
+            </a>
+        </li>
+    <?php endif; ?>
     <?php if (!@in_array('transport', $this->loginInfo["accessRestring"]["controllers"])): ?>
         <li>
             <a <?php echo("transport" == $this->parameters["controller"]) ? "class='active'" : ""; ?> href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'transport', 'action' => 'index'), '', true); ?>">

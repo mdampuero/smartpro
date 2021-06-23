@@ -17,6 +17,8 @@
                 ->prependStylesheet($this->baseUrl() . '/css/jquery-ui.css')
                 ->prependStylesheet($this->baseUrl() . '/css/imgareaselect-default.css')
                 ->prependStylesheet($this->baseUrl() . '/extras/jQuery-File-Upload-9.21.0/css/jquery.fileupload.css')
+                ->prependStylesheet($this->baseUrl() . '/css/loading.css')
+                ->prependStylesheet($this->baseUrl() . '/toast-master/css/jquery.toast.css')
                 ->prependStylesheet($this->baseUrl() . '/css/bootstrap-rta-1.0.1.min.css');
 //                ->prependStylesheet($this->baseUrl() . '/css/bootstrap-responsive-2.3.1.min.css');
 //                ->prependStylesheet($this->baseUrl() . '/css/bootstrap-2.3.1.min.css');
@@ -52,6 +54,11 @@
         <link rel="stylesheet" type="text/css" media="print" href="<?php echo $this->baseUrl() . "/css/bootstrap.css"; ?>">
     </head>
     <body>
+        <div class="loading">
+            <div class='uil-ring-css' style='transform:scale(0.79);'>
+                <div></div>
+            </div>
+        </div>
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -204,6 +211,7 @@
         echo $this->render('modalWindow.phtml');
         ?>
     </body>
+    <script src="<?php echo $this->baseUrl();?>/toast-master/js/jquery.toast.js"></script>
     <script>
         function is_enter_search(e) {
             if (e.keyCode == 13) {
