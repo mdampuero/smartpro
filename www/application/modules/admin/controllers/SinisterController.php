@@ -6,6 +6,7 @@
  * E-Mail: mdampuero@gmail.com
  */
 require_once 'Company.php';
+require_once 'Productors.php';
 require_once 'Provider.php';
 require_once 'Gallery.php';
 require_once 'Sinister.php';
@@ -34,6 +35,7 @@ class Admin_SinisterController extends Zend_Controller_Action {
             $this->view->setting = $this->_helper->Setting->getSetting();
             $this->view->parameters = $this->_request->getParams();
             $this->company = new Model_DBTable_Company();
+            $this->productors = new Model_DBTable_Productors();
             $this->state = new Model_DBTable_State();
             $this->branch = new Model_DBTable_Branch();
             $this->gallery = new Model_DBTable_Gallery();
@@ -48,11 +50,12 @@ class Admin_SinisterController extends Zend_Controller_Action {
                 array('field' => 'si_date', 'label' => 'Fecha de Ingreso', 'required' => 'required', 'search' => true, 'order' => true, 'list' => true, 'type' => 'date', 'calendar' => true),
                 array('field' => 'si_days', 'label' => 'Días', 'notdisplay' => true, 'notsave' => true, 'list' => true, 'search' => false, 'order' => true),
                 array('field' => 'si_co_id', 'label' => 'Compañia', 'required' => 'required', 'type' => 'combo', 'data' => $this->company->listAll(), 'option-empy' => 'Seleccione una Compañia'),
+                array('field' => 'si_pr_id', 'label' => 'Productor', 'required' => 'required', 'type' => 'combo', 'data' => $this->productors->listAll(), 'option-empy' => 'Seleccione un Productor'),
                 array('field' => 'co_name', 'label' => 'Compañia', 'notdisplay' => true, 'notsave' => true, 'list' => true, 'search' => true, 'order' => true),
-                array('field' => 'si_fullname', 'label' => 'Asegurado', 'required' => '', 'search' => true, 'order' => true, 'list' => true),
+                array('field' => 'si_fullname', 'label' => 'Asegurado', 'required' => 'required', 'search' => true, 'order' => true, 'list' => true),
                 array('field' => 'si_email', 'label' => 'E-Mail', 'required' => '', 'search' => true, 'order' => true, 'list' => false),
                 array('field' => 'si_phone', 'label' => 'Teléfono', 'required' => '', 'search' => true, 'order' => true, 'list' => false),
-                array('field' => 'si_domain','notdisplay' => true, 'label' => 'Dominio', 'required' => 'required', 'search' => true, 'order' => true, 'list' => true,'attr'=>'maxlength="8"'),
+                array('field' => 'si_domain','notdisplay' => true, 'label' => 'Dominio', 'search' => true, 'order' => true, 'list' => true,'attr'=>'maxlength="8"'),
                 array('field' => 'status_label', 'label' => 'Estado', 'notdisplay' => true, 'notsave' => true, 'list' => true,  'order' => true),
                 array('field' => 'si_data_complete', 'label' => 'Datos completos','class' => 'text-center', 'notdisplay' => true, 'notsave' => true, 'list' => true, 'search' => true, 'order' => true),
                 array('field' => 'car', 'label' => 'car', 'type' => 'partial-view', 'file' => $this->view->parameters["controller"] . '/car.phtml', 'notsave' => true),
@@ -74,6 +77,11 @@ class Admin_SinisterController extends Zend_Controller_Action {
                 array('field' => 'ga_si_id', 'label' => 'Galería de Fotos', 'type' => 'gallery', 'data' => $this->gallery->showAll("ga_si_id='" . $this->_getParam("id", 0) . "'"), 'notsave' => true, 'resize' => '800|600'),
                 array('field' => 'si_tr_id', 'label' => 'Transporte', 'notdisplay' => true, 'type' => 'combo', 'data' => $this->transport->listAll(), 'option-empy' => 'Seleccione un Transporte'),
                 array('field' => 'si_track_id','notdisplay' => true, 'label' => 'Nº de Guía', 'search' => true, 'order' => true, 'list' => true,'attr'=>'maxlength="24"'),
+                array('field' => 'si_address_street', 'label' => 'Calle','notdisplay' => true, 'search' => true, 'type' => 'text'),
+                array('field' => 'si_address_number', 'label' => 'Número','notdisplay' => true, 'search' => true, 'type' => 'text'),
+                array('field' => 'si_address_dpto', 'label' => 'Depto','notdisplay' => true, 'search' => true, 'type' => 'text'),
+                array('field' => 'si_address_floor', 'label' => 'Piso','notdisplay' => true, 'search' => true, 'type' => 'text'),
+                array('field' => 'si_address_postal', 'label' => 'Código Postal','notdisplay' => true, 'search' => true, 'type' => 'text')
             );
             $this->view->fields = $this->fields;
             $this->actions = array(
@@ -128,6 +136,7 @@ class Admin_SinisterController extends Zend_Controller_Action {
                 'date_from' => array('label' => 'Fecha desde'),
                 'date_to' => array('label' => 'Fecha hasta'),
                 'si_co_id' => array('label' => 'Compañía Aseguradora', 'data' => $this->company->showAll(), 'id' => 'co_id', 'value' => 'co_name'),
+                'si_pr_id' => array('label' => 'Productores', 'data' => $this->productors->showAll(), 'id' => 'pr_id', 'value' => 'pr_name'),
                 'si_status' => array('label' => 'Estado', 'data' => $status, 'id' => 'id', 'value' => 'name'),
                 'si_st_id' => array('label' => 'Provincia', 'data' =>$this->state->showAll(), 'id' => 'st_id', 'value' => 'st_state')
             );
@@ -483,10 +492,10 @@ class Admin_SinisterController extends Zend_Controller_Action {
                 if ($this->view->result['si_status'] != $this->dataEdit["si_status"]){
                     switch ($this->view->result['si_status']){
                         case 1:
-                        $activity_pre = "De 'Faltan Definir Repuestos'";
+                        $activity_pre = "De 'Falta definir productos'";
                         break;
                         case 2:
-                        $activity_pre = "De 'En espera de repuestos'";
+                        $activity_pre = "De 'En espera de productos'";
                         break;
                         case 3:
                         $activity_pre = "De 'Ingresado sin entregar'";
@@ -494,10 +503,10 @@ class Admin_SinisterController extends Zend_Controller_Action {
                     }
                     switch ($this->dataEdit["si_status"]){
                         case 1:
-                        $activity_suf = " a 'Faltan Definir Repuestos'";
+                        $activity_suf = " a 'Falta definir productos'";
                         break;
                         case 2:
-                        $activity_suf = " a 'En espera de repuestos'";
+                        $activity_suf = " a 'En espera de productos'";
                         break;
                         case 3:
                         $activity_suf = " a 'Ingresado sin entregar'";
@@ -612,7 +621,7 @@ class Admin_SinisterController extends Zend_Controller_Action {
             $this->view->partial = $this->view->parameters["controller"] . '/status.phtml';
             $this->view->title = $this->title . ' / Detalle';
             $this->view->formDisabled = true;
-            $this->view->js = 'loadModel(' . $this->view->result["si_br_id"] . ',' . $this->view->result["si_mo_id"] . ')';
+            //$this->view->js = 'loadModel(' . $this->view->result["si_br_id"] . ',' . $this->view->result["si_mo_id"] . ')';
             $this->view->description = 'Detalle de ' . $this->title . ' "' . $this->view->result[$this->view->fields[1]["field"]] . '"';
             $this->renderScript($this->view->parameters["controller"] . '/qr.phtml');
         } catch (Zend_Exception $exc) {

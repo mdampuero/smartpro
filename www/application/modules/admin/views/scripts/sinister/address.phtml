@@ -7,7 +7,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                    <?php $key=18;?>
+                    <?php $key=18+1;?>
                     <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
                     <select <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> class="form-control"  id="<?php echo $this->fields[$key]["field"] ?>" name="<?php echo $this->fields[$key]["field"] ?>" <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?> >
                         <?php if (!empty($this->fields[$key]["option-empy"])): ?>
@@ -18,14 +18,51 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <?php $key=19;?>
+                <?php $key=19+1;?>
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                     <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
                     <input <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo $this->fields[$key]["attr"] ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> 
                     value="<?php echo $this->result[$this->fields[$key]["field"]] ?>" type="text" id="<?php echo $this->fields[$key]["field"] ?>" name="<?php echo $this->fields[$key]["field"] ?>" class="form-control" 
                     placeholder="<?php echo $this->fields[$key]["label"] ?>" <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?>>
                 </div>
-                <?php $key=24;?>
+            </div>
+            <div class="row">
+                <?php $key=34;?>
+                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                    <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
+                    <input <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo $this->fields[$key]["attr"] ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> 
+                    value="<?php echo $this->result[$this->fields[$key]["field"]] ?>" type="text" id="<?php echo $this->fields[$key]["field"] ?>" name="<?php echo $this->fields[$key]["field"] ?>" class="form-control" 
+                    placeholder="<?php echo $this->fields[$key]["label"] ?>" <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?>>
+                </div>
+                <?php $key=35;?>
+                <div class="form-group col-md-2 col-sm-6 col-xs-6">
+                    <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
+                    <input <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo $this->fields[$key]["attr"] ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> 
+                    value="<?php echo $this->result[$this->fields[$key]["field"]] ?>" type="text" id="<?php echo $this->fields[$key]["field"] ?>" name="<?php echo $this->fields[$key]["field"] ?>" class="form-control" 
+                    placeholder="<?php echo $this->fields[$key]["label"] ?>" <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?>>
+                </div>
+                <?php $key=36;?>
+                <div class="form-group col-md-2 col-sm-6 col-xs-6">
+                    <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
+                    <input <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo $this->fields[$key]["attr"] ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> 
+                    value="<?php echo $this->result[$this->fields[$key]["field"]] ?>" type="text" id="<?php echo $this->fields[$key]["field"] ?>" name="<?php echo $this->fields[$key]["field"] ?>" class="form-control" 
+                    placeholder="<?php echo $this->fields[$key]["label"] ?>" <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?>>
+                </div>
+                <?php $key=37;?>
+                <div class="form-group col-md-2 col-sm-6 col-xs-6">
+                    <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
+                    <input <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo $this->fields[$key]["attr"] ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> 
+                    value="<?php echo $this->result[$this->fields[$key]["field"]] ?>" type="text" id="<?php echo $this->fields[$key]["field"] ?>" name="<?php echo $this->fields[$key]["field"] ?>" class="form-control" 
+                    placeholder="<?php echo $this->fields[$key]["label"] ?>" <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?>>
+                </div>
+                <?php $key=38;?>
+                <div class="form-group col-md-2 col-sm-6 col-xs-6">
+                    <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
+                    <input <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo $this->fields[$key]["attr"] ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> 
+                    value="<?php echo $this->result[$this->fields[$key]["field"]] ?>" type="text" id="<?php echo $this->fields[$key]["field"] ?>" name="<?php echo $this->fields[$key]["field"] ?>" class="form-control" 
+                    placeholder="<?php echo $this->fields[$key]["label"] ?>" <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?>>
+                </div>
+                <?php /*$key=24+1;?>
                 <div class="form-group col-xs-12">
                     <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
                     <textarea <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?>
@@ -33,8 +70,9 @@
                         placeholder="<?php echo $this->fields[$key]["label"] ?>"  <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?>
                         ><?php echo $this->result[$this->fields[$key]["field"]] ?></textarea>
                 </div>
+                <?php */ ?>
                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                    <?php $key=20;?>
+                    <?php $key=20+1;?>
                     <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
                     <select <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> class="form-control"  id="<?php echo $this->fields[$key]["field"] ?>" name="<?php echo $this->fields[$key]["field"] ?>" <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?> >
                         <?php if (!empty($this->fields[$key]["option-empy"])): ?>
@@ -46,7 +84,7 @@
                     </select>
                 </div>
                 <div class="form-group delivery col-lg-4 col-md-4 col-sm-6 col-xs-6" style="display:none">
-                    <?php $key=31;?>
+                    <?php $key=31+1;?>
                     <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
                     <select <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> class="form-control"  id="<?php echo $this->fields[$key]["field"] ?>" name="<?php echo $this->fields[$key]["field"] ?>" <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?> >
                         <?php if (!empty($this->fields[$key]["option-empy"])): ?>
@@ -57,21 +95,21 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <?php $key=32;?>
+                <?php $key=32+1;?>
                 <div class="form-group delivery col-lg-4 col-md-4 col-sm-6 col-xs-6" style="display:none">
                     <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
                     <input <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo $this->fields[$key]["attr"] ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> 
                     value="<?php echo $this->result[$this->fields[$key]["field"]] ?>" type="text" id="<?php echo $this->fields[$key]["field"] ?>" name="<?php echo $this->fields[$key]["field"] ?>" class="form-control" 
                     placeholder="<?php echo $this->fields[$key]["label"] ?>" <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?>>
                 </div>
-                <?php $key=21;?>
+                <?php $key=21+1;?>
                 <div class="form-group delivery col-lg-4 col-md-4 col-sm-6 col-xs-6" style="display:none">
                     <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
                     <input <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo $this->fields[$key]["attr"] ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> 
                     value="<?php echo $this->result[$this->fields[$key]["field"]] ?>" type="text" id="<?php echo $this->fields[$key]["field"] ?>" name="<?php echo $this->fields[$key]["field"] ?>" class="form-control" 
                     placeholder="<?php echo $this->fields[$key]["label"] ?>" <?php echo ($this->fields[$key]["required"]) ? 'data-validate="' . $this->fields[$key]["required"] . '"' : ""; ?>>
                 </div>
-                <?php $key=22;?>
+                <?php $key=22+1;?>
                 <div class="form-group delivery col-lg-4 col-md-4 col-sm-6 col-xs-6" style="display:none">
                     <label for="<?php echo $this->fields[$key]["field"] ?>"><?php echo $this->fields[$key]["label"] ?> <?php echo ($this->fields[$key]["required"]) ? "*" : ""; ?></label>
                     <input <?php echo ($this->fields[$key]["attr"]) ? $this->fields[$key]["attr"] : ""; ?> <?php echo $this->fields[$key]["attr"] ?> <?php echo ($this->formDisabled == true) ? " disabled " : ""; ?> 

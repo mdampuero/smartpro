@@ -25,13 +25,11 @@
                 <th><input type="checkbox" id="select_all"/></th>
                 <th><a href='<?php echo $this->url(array('sort' => 'si_id', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>ID</a></th>
                 <th><a href='<?php echo $this->url(array('sort' => 'si_number', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Nº Siniestro</a></th>
-                <th><a href='<?php echo $this->url(array('sort' => 'br_name', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Marca</a></th>
-                <th><a href='<?php echo $this->url(array('sort' => 'mo_name', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Modelo</a></th>
                 <th><a href='<?php echo $this->url(array('sort' => 'si_date', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>F.Ingreso</a></th>
                 <th><a href='<?php echo $this->url(array('sort' => 'si_days', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Días</a></th>
                 <th><a href='<?php echo $this->url(array('sort' => 'co_name', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Compañía</a></th>
+                <th><a href='<?php echo $this->url(array('sort' => 'pr_name', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Productor</a></th>
                 <th><a href='<?php echo $this->url(array('sort' => 'si_fullname', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Asegurado</a></th>
-                <th><a href='<?php echo $this->url(array('sort' => 'si_domain', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Dominio</a></th>
                 <th class="text-center"><a href='<?php echo $this->url(array('sort' => 'status_label', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Estado</a></th>
                 <th class="text-center"><a href='<?php echo $this->url(array('sort' => 'si_data_complete', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>D.C</a></th>
                 <th class='opciones'>Opciones</th>
@@ -55,19 +53,18 @@
                         </td>
                         <td><b><?php echo $result['si_id'] ?></b></td>
                         <td class="nowrap"><?php echo $result['si_number'] ?></td>
-                        <td><?php echo $result['br_name'] ?></td>
-                        <td class="trim-text">
-                            <span class="tooltipon" data-placement="left" title="<?php echo $result['mo_name'] ?>"><?php echo $result['mo_name'] ?></span>
-                        </td>
                         <td><?php echo invertDate($result['si_date'], '-') ?></td>
                         <td class="text-center"><?php echo $result['si_days'] ?></td>
+                        
                         <td class="trim-text">
                             <span class="tooltipon" data-placement="left" title="<?php echo $result['co_name'] ?>"><?php echo $result['co_name'] ?></span>
                         </td>
                         <td class="trim-text">
+                            <span class="tooltipon" data-placement="left" title="<?php echo $result['pr_name'] ?>"><?php echo $result['pr_name'] ?></span>
+                        </td>
+                        <td class="trim-text">
                             <span class="tooltipon" data-placement="left" title="<?php echo $result['si_fullname'] ?>"><?php echo $result['si_fullname'] ?></span>
                         </td>
-                        <td><?php echo $result['si_domain'] ?></td>
                         <td class="text-center">
                             <?php if ($result['si_status']!=1): ?>
                                 <a style="color:inherit;" class="tooltipon" title="Ver más" href="javascript:openModalStatus(<?php echo $keyRow ?>); void(0);">
@@ -85,7 +82,7 @@
                                 <a title="Orden de Trabajo" class="glyphicon glyphicon-glyphicon glyphicon-wrench text-primary" href="<?php echo $this->url(array('action'=>'order','id'=>$result['si_id'])); ?>" ></a>
                                 <a title="Detalle" class="glyphicon glyphicon-glyphicon glyphicon-eye-open text-primary" href="<?php echo $this->url(array('action'=>'detail','id'=>$result['si_id'])); ?>" ></a>
                                 <a title="Editar" class="glyphicon glyphicon-glyphicon glyphicon-edit text-primary" href="<?php echo $this->url(array('action'=>'edit','id'=>$result['si_id'])); ?>" ></a>
-                                <a title="Orden de Trabajo" class="glyphicon glyphicon-glyphicon glyphicon-ban-circle text-danger" href="javascript:openDialog('<?php echo $option["dialog_message"]; ?>','deleteRow(<?php echo $keyRow ?>,<?php echo $result['si_id'] ?>)');" ></a>
+                                <a title="Orden de Trabajo" class="glyphicon glyphicon-glyphicon glyphicon-ban-circle text-danger" href="javascript:openDialog('¿Esta seguro que desea eliminar este Siniestro?','deleteRow(<?php echo $keyRow ?>,<?php echo $result['si_id'] ?>)');" ></a>
                             </td>
                         <?php endif; ?>
                     </tr>

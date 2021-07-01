@@ -10,11 +10,30 @@ class Model_DBTable_Productors extends Zend_Db_Table_Abstract {
 
     protected $_name = 'sg_productors';
 
+    public function listAll() {
+        $getAllBuild=$this->builder();
+        $rows = $this->fetchAll($getAllBuild);
+        if (!$rows)
+            $result=[];
+        $results=(!$rows)?[]:$rows->toArray();
+        $return=[];
+        foreach($results as $key=>$result){
+            $return[$result['pr_id']]=$result['pr_name'];
+        }
+        return $return;
+    }
+    
+    public function showAll() {
+        $getAllBuild=$this->builder();
+        $rows = $this->fetchAll($getAllBuild);
+        $results=(!$rows)?[]:$rows->toArray();
+        return $results;
+    }
+
     public function builder(){
         $select = $this->select();
         $select->from(array($this->_name), array("*"));
-        $select->where("pr_deleted = 0");
-        
+        $select->where("pr_deleted = 0");        
         $select->setIntegrityCheck(false);
         return $select;
     }

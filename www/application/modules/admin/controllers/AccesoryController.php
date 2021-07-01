@@ -14,10 +14,10 @@ class Admin_AccesoryController extends Zend_Controller_Action {
     var $fields = array();
     var $actions = array();
     var $options = array();
-    var $singular = "Accesorio o Servicio";
-    var $plural = "todos los Accesorios o servicios";
-    var $messageDelete = "¿Esta seguro que desea eliminar este Accesorio o Servicio?";
-    var $title = "Repuestos / Accesorios o Servicios";
+    var $singular = "Productos";
+    var $plural = "todos los Productos";
+    var $messageDelete = "¿Esta seguro que desea eliminar este Producto?";
+    var $title = "Productos";
 
     public function init() {
         try {
@@ -28,8 +28,8 @@ class Admin_AccesoryController extends Zend_Controller_Action {
             //SEND DATE VIEW
             $this->fields = array(
                 array('field' => 'ac_id', 'label' => 'ID', 'list' => true, 'class' => 'id', 'order' => true),
-                array('field' => 'ac_name', 'label' => 'Nombre', 'required' => 'required', 'search' => true, 'order' => true, 'list' => true),
                 array('field' => 'ac_code', 'label' => 'Código',  'search' => true, 'order' => true, 'list' => true),
+                array('field' => 'ac_name', 'label' => 'Nombre', 'required' => 'required', 'search' => true, 'order' => true, 'list' => true),
             );
             $this->view->fields = $this->fields;
             $this->actions = array(

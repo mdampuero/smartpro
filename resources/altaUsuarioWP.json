@@ -1,0 +1,18 @@
+{
+    "siniestro":"44554588",
+    "compania":"BERNARDINO RIVADAVIA",
+    "fecha":"2021-06-30",
+    "monto":"850000",
+    "nombre_completo":"Orberto Perez",
+    "documento":"25123456",
+    "email":"email@host.com",
+    "telefono":"261699554994",
+    "provincia":"Mendoza",
+    "departamento":"Guaymalén",
+    "codigo_postal":"5525",
+    "calle":"Alguna calle",
+    "numero":"123",
+    "depto":"A1",
+    "piso":"2",
+    "observaciones":"Alguna observacion"
+ }

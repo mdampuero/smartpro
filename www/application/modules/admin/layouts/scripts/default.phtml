@@ -453,10 +453,24 @@ function replaceAll(str, find, replace) {
     var escapedFind=find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
     return str.replace(new RegExp(escapedFind, 'g'), replace);
 }
+var loading={
+            show: function (){
+                $("div.loading").fadeIn();
+                return true;
+            },
+            hide: function (){
+                $("div.loading").fadeOut();
+                return true;
+            }
+        }
 <?php
 if ($this->js) {
     echo $this->js;
 }
 ?>
+    
+    $(function (){
+        loading.hide();
+    })
     </script> 
 </html>

@@ -1,0 +1,256 @@
+<div class="section section-basic px-2">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="preloading" href="<?php echo $this->url(['action'=>'index']);?>">Mis Siniestros</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Siniestro Nº <?php echo $this->sinister["si_number"];?></li>
+            </ol>
+        </nav>
+    </div>
+    <?php if($this->sinister["si_status"]==1):?>
+    <div class="alert alert-danger">
+        <div class="container text-center">
+            <h4>
+                <i class="fas fa-exclamation-triangle"></i> Estado: <?php echo $this->sinister["status_label"];?>
+            </h4>
+        </div>
+    </div>
+    <?php endif;?>
+    <?php if($this->sinister["si_status"]==2):?>
+    <div class="alert alert-warning">
+        <div class="container text-center">
+            <h4>
+                <i class="fas fa-exclamation-triangle"></i> Estado: <?php echo $this->sinister["status_label"];?>
+            </h4>
+        </div>
+    </div>
+    <?php endif;?>
+    <?php if($this->sinister["si_status"]==3):?>
+    <div class="alert alert-primary">
+        <div class="container text-center">
+            <h4>
+                <i class="fas fa-exclamation-triangle"></i> Estado: <?php echo $this->sinister["status_label"];?>
+            </h4>
+        </div>
+    </div>
+    <?php endif;?>
+    <?php if($this->sinister["si_status"]==4 || $this->sinister["si_status"]==5):?>
+    <div class="alert alert-success">
+        <div class="container text-center">
+            <h4>
+                <i class="fas fa-check-double"></i> Estado: <?php echo $this->sinister["status_label"];?>
+            </h4>
+        </div>
+    </div>
+    <?php endif;?>
+    <?php if($this->sinister["si_status"]==60):?>
+    <div class="alert alert-danger">
+        <div class="container text-center">
+            <h4>
+                <i class="fas fa-ban"></i> Estado: Cancelado
+            </h4>
+        </div>
+    </div>
+    <?php endif;?>
+    <div class="container">
+        <div class="title m-0">
+            <h2 class="pb-3">Nº <?php echo $this->sinister["si_number"];?></h2>
+        </div>
+        <form method="POST" class="sendToApi" action="<?php echo $this->url(['module'=>'api','controller'=>'sinisters'],null,true)?>" novalidate>
+            <input type="hidden" name="si_id" value="0">
+            <input type="hidden" name="si_pr_id" value="<?php echo $this->login["pr_id"];?>">
+            <div class="card mb-5">
+                <div class="card-header card-header-info mb-4">
+                    <h4>Datos del siniestro</h4>
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-6">
+                            <div class="form-group ">
+                                <label>Nº Siniestro</label>
+                                <p><b><?php echo $this->sinister["si_number"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="form-group">
+                                <label for="si_amount">Monto</label>
+                                <p><b>$ <?php echo number_format($this->sinister["si_amount"],2,',','.');?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group ">
+                                <label for="si_co_id">Compañía</label>
+                                <p><b><?php echo $this->sinister["co_name"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group">
+                                <label for="si_date">Fecha de Ingreso</label>
+                                <p><b><?php echo date('d/m/Y', strtotime($this->sinister["si_date"])) ;?></b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-5">
+                <div class="card-header card-header-info mb-4">
+                    <h4>Datos del asegurado</h4>
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group">
+                                <label for="si_fullname">Nombre completo del asegurado</label>
+                                <p><b><?php echo $this->sinister["si_fullname"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="form-group">
+                                <label for="si_document">DNI</label>
+                                <p><b><?php echo $this->sinister["si_document"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="form-group">
+                                <label for="si_phone">Teléfono</label>
+                                <p><b><?php echo $this->sinister["si_phone"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group">
+                                <label for="si_email">Email</label>
+                                <p><b><?php echo $this->sinister["si_email"];?></b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-5">
+                <div class="card-header card-header-info mb-4">
+                    <h4>Datos postales</h4>
+                </div>
+                <div class="card-body ">
+                    <div class="row"> 
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group ">
+                                <label for="si_st_id">Provincia</label>
+                                <p><b><?php echo $this->sinister["state_name"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group">
+                                <label for="si_city">Departamento</label>
+                                <p><b><?php echo $this->sinister["si_city"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group">
+                                <label for="si_address_street">Calle</label>
+                                <p><b><?php echo $this->sinister["si_address_street"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <div class="form-group">
+                                <label for="si_address_number">Número</label>
+                                <p><b><?php echo $this->sinister["si_address_number"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <div class="form-group">
+                                <label for="si_address_postal">C. postal</label>
+                                <p><b><?php echo $this->sinister["si_address_postal"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <div class="form-group">
+                                <label for="si_address_dpto">Dpto</label>
+                                <p><b><?php echo $this->sinister["si_address_dpto"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <div class="form-group">
+                                <label for="si_address_floor">Piso</label>
+                                <p><b><?php echo $this->sinister["si_address_floor"];?></b></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="si_observation_loan">Observaciones</label>
+                                <p><b><?php echo $this->sinister["si_observation_loan"];?></b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-5">
+                <div class="card-header card-header-info mb-2">
+                    <h4>Productos seleccionados</h4>
+                </div>
+                <div class="card-body ">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-striped table-bordered" style="width:100% margin-top: -30px;">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach($this->products as $key=>$product):?>
+                                <tr>
+                                    <td><?php echo $key+1;?></td>
+                                    <td><?php echo $product["ac_code"];?></td>
+                                    <td><?php echo $product["ac_name"];?></td>
+                                    <td><?php echo $product["sa_count"];?></td>
+                                </tr>
+                            <?php endforeach;?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form> 
+    </div>
+</div>
+<script>
+    function after200(data){
+        console.log(data);
+        // $.ajax({
+        //     url: '',
+        //     type: POST,
+        //     data:JSON.stringify(data),
+        //     contentType: "application/json",
+        //     crossDomain: true,
+        //     success: function(data) {
+        //         console.log("Exito-WP");
+        //     },  
+        //     complete:function(){
+        //         console.log("Complete-WP");
+        //     },
+        //     error: function(data, status, error) {
+        //         console.log("Error-WP");
+        //     }
+        // });
+        loading.hide();
+        $.toast({
+            heading: 'Resultado OK!',
+            text: 'El siniestro fue creado correctamente.',
+            position: 'top-right',
+            icon: 'success',
+            hideAfter: 5000, 
+            stack: 6
+        });
+        $("form.sendToApi").trigger("reset");
+    }
+    $(document).ready(function() {
+        $('#datatable').DataTable({
+            "aaSorting": [],
+            "bLengthChange" : false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+            },
+        });
+    } );
+</script>

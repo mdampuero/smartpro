@@ -83,6 +83,19 @@ class Model_DBTable_Accesory extends Zend_Db_Table_Abstract {
         return $row->toArray();
     }
 
+    public function getByCode($code) {
+
+        $select = $this->select();
+        $select->from(array($this->_name), array("*"));
+        $select->setIntegrityCheck(false);
+        $select->where('ac_code = "' . $code.'"');
+        $row = $this->fetchRow($select);
+        if (!$row) {
+            return null;
+        }
+        return $row->toArray();
+    }
+
     public function delete_row($id) {
 
         return $this->delete($this->primary . ' = ' . (int) $id);

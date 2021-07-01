@@ -5,8 +5,8 @@
                 <div class="col-lg-4 col-md-6 ml-auto mr-auto">
                     <div class="card card-login">
                         <form class="form sendToApi" method="POST" action="<?php echo $this->url(['module'=>'api','controller'=>'productors','action'=>'login'])?>" novalidate>
-                            <div class="card-header card-header-primary text-center">
-                                <h4 class="card-title">Smart Pro</h4>
+                            <div class="card-header card-header-primary text-center p-0">
+                                <img src="<?php echo $this->baseUrl()."/fe/assets/img/logo-smartpro-1.png";?>" style="width:70%;">
                             </div>
                             <p class="description text-center">Ingrese sus credenciales</p>
                             <div class="card-body">
@@ -47,5 +47,8 @@
             hideAfter: 3000, 
             stack: 6
         });
+    }
+    function after200(){
+        location.href='<?php echo $this->url(['module'=>'default','controller'=>'index'],null,true)?>'
     }
 </script>

@@ -11,6 +11,7 @@
         ?>
         <div class="hidden-print">
         <?php endif; ?>
+        <div class="col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 Orden de Trabajo
@@ -21,8 +22,7 @@
                         <div class="row">
                             <div class="col-xs-6">
                                 <p><label>Fecha</label> : <?php echo $this->result["si_date"]; ?></p>
-                                <p><label>Dominio</label> : <?php echo $this->result["si_domain"]; ?></p>
-                                <p><label>Vehículo</label> : <?php echo $this->result["br_name"]; ?> <?php echo $this->result["mo_name"]; ?> <?php echo $this->result["si_version"]; ?></p>
+                                <p><label>Productor</label> : <?php echo $this->result["pr_name"]; ?></p>
                             </div>
                             <div class="col-xs-6">
                                 <p><label>Nombre</label> : <?php echo $this->result["si_fullname"]; ?></p>
@@ -37,65 +37,16 @@
                                     <thead>
                                         <tr>
                                             <th>Cant.</th>
-                                            <th>Tipo</th>
-                                            <th>Repuesto</th>
+                                            <th>Producto</th>
                                             <th>Nº remito</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                 <?php
-                                if ($this->result['si_tamount_au'] > 0):
-                                    $count_stock++;
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $this->result['si_tamount_au']; ?></td>
-                                        <td>LLanta de Auxilio</td>
-                                        <td><?php echo $this->result['tb_name_au']; ?></td>
-                                        <td><?php echo $this->result['si_au_number']; ?></td>
-                                    </tr>
-                                <?php endif;
-                                ?>
-                                <?php
-                                if ($this->result['si_amount_po'] > 0):
-                                    $count_stock++;
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $this->result['si_amount_po']; ?></td>
-                                        <td>LLanta de Posición</td>
-                                        <td><?php echo $this->result['tb_name_po']; ?></td>
-                                        <td><?php echo $this->result['si_po_number']; ?></td>
-                                    </tr>
-                                <?php endif;
-                                ?>
-                                <?php
-                                if ($this->result['si_amount_co'] > 0):
-                                    $count_stock++;
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $this->result['si_amount_co']; ?></td>
-                                        <td>Neumático</td>
-                                        <td><?php echo $this->result['cb_name']; ?></td>
-                                        <td><?php echo $this->result['si_co_number']; ?></td>
-                                    </tr>
-                                <?php endif;
-                                ?>
-                                <?php
-                                if ($this->result['si_amount_ba'] > 0):
-                                    $count_stock++;
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $this->result['si_amount_ba']; ?></td>
-                                        <td>Batería</td>
-                                        <td><?php echo $this->result['bb_name']; ?></td>
-                                        <td><?php echo $this->result['si_ba_number']; ?></td>
-                                    </tr>
-                                    <?php
-                                endif;
                                 foreach ($this->sinister_accesory as $si_ac):
                                     ?>
                                         <tr>
                                             <td><?php echo $si_ac['sa_count']; ?></td>
-                                            <td>Accesorio</td>
                                             <td>[<?php echo $si_ac["ac_code"]; ?>] - <?php echo $si_ac["ac_name"]; ?></td>
                                             <td><?php echo $si_ac['sa_number']; ?></td>
                                         </tr>
@@ -117,6 +68,7 @@
                 <?php endif; ?>
             </div>
         </div>
+        </div>
         <?php if ($this->parameters["action"] != 'order'): ?>
         </div>  
     <?php endif; ?>
@@ -136,7 +88,7 @@
                 <h4>TELÉFONO: <?php echo $this->result["si_phone"];?></h4>
                 <h4>PROVINCIA: <?php echo $this->result["state_name"];?></h4>
                 <h4>CIUDAD: <?php echo $this->result["si_city"];?></h4>
-                <h4>DIRECCIÓN: <?php echo $this->result["si_customer_address"];?></h4>
+                <h4>DIRECCIÓN: <?php echo $this->result["si_address_street"]. " ".$this->result["si_address_number"]." (".$this->result["si_address_postal"].") ".$this->result["si_address_depto"]. " ".$this->result["si_address_floor"];?></h4>
             </div>
         </div>
         <?php endif; ?>

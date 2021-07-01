@@ -1,0 +1,23 @@
+<h2>Listado de productos</h2>
+<hr>
+<table  width="100%">
+    <thead>
+        <tr>
+            <td><b>Item</b></td>
+            <td><b>Código</b></td>
+            <td><b>Producto</b></td>
+            <td><b>Cantidad</b></td>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->products as $key=>$product):?>
+            <tr>
+                <td><?php echo $key+1;?></td>
+                <td><?php echo $product["ac_code"];?></td>
+                <td><?php echo $product["ac_name"];?></td>
+                <td><?php echo $product["sa_count"];?></td>
+            </tr>
+        <?php endforeach;?>
+    </tbody>
+</table>
+<hr>

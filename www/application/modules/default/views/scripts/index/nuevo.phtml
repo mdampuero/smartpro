@@ -1,0 +1,187 @@
+<div class="section section-basic px-2">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="preloading" href="<?php echo $this->url(['action'=>'index']);?>">Mis Siniestros</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ingresar Siniestro</li>
+            </ol>
+        </nav>
+        <div class="title m-0">
+            <h2 class="pb-3">Ingresar siniestro</h2>
+        </div>
+        <form method="POST" class="sendToApi" action="<?php echo $this->url(['module'=>'api','controller'=>'sinisters'],null,true)?>" novalidate>
+            <input type="hidden" name="si_id" value="0">
+            <input type="hidden" name="si_pr_id" value="<?php echo $this->login["pr_id"];?>">
+            <div class="card mb-5">
+                <div class="card-header card-header-info mb-4">
+                    <h4>Datos del siniestro</h4>
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-6">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_number">Nº Siniestro *</label>
+                                <input type="text" class="form-control" id="si_number" name="si_number">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_amount">Monto *</label>
+                                <input type="text" class="form-control" id="si_amount" name="si_amount">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group " style="margin-top: -6px;">
+                                <label for="si_co_id">Compañía *</label>
+                                <select id="si_co_id" name="si_co_id" class="form-control">
+                                    <option value=""></option>
+                                    <?php foreach($this->companies as $id => $company):?>
+                                        <option value="<?php echo $id;?>"><?php echo $company;?></option>
+                                    <?php endforeach;?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_date">Fecha de Ingreso *</label>
+                                <input type="text" class="form-control datetimepicker" id="si_date" name="si_date" value="<?php echo date('d/m/Y')?>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-5 ">
+                <div class="card-header card-header-info mb-4">
+                    <h4>Datos del asegurado</h4>
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_fullname">Nombre completo del asegurado *</label>
+                                <input type="text" class="form-control" id="si_fullname" name="si_fullname">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_document">DNI *</label>
+                                <input type="text" class="form-control" id="si_document" name="si_document">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_phone">Teléfono</label>
+                                <input type="text" class="form-control" id="si_phone" name="si_phone">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_email">Email</label>
+                                <input type="text" class="form-control" id="si_email" name="si_email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-5">
+                <div class="card-header card-header-info mb-4">
+                    <h4>Datos postales</h4>
+                </div>
+                <div class="card-body ">
+                    <div class="row"> 
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group " style="margin-top: -6px;">
+                                <label for="si_st_id">Provincia *</label>
+                                <select id="si_st_id" name="si_st_id" class="form-control">
+                                    <option value=""></option>
+                                    <?php foreach($this->states as $id => $state):?>
+                                        <option value="<?php echo $id;?>"><?php echo $state;?></option>
+                                    <?php endforeach;?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_city">Departamento *</label>
+                                <input type="text" class="form-control" id="si_city" name="si_city">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_address_street">Calle *</label>
+                                <input type="text" class="form-control" id="si_address_street" name="si_address_street">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_address_number">Número *</label>
+                                <input type="text" class="form-control" id="si_address_number" name="si_address_number">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_address_postal">C. postal *</label>
+                                <input type="text" class="form-control" id="si_address_postal" name="si_address_postal">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_address_dpto">Dpto</label>
+                                <input type="text" class="form-control" id="si_address_dpto" name="si_address_dpto">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_address_floor">Piso</label>
+                                <input type="text" class="form-control" id="si_address_floor" name="si_address_floor">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group bmd-form-group">
+                                <label for="si_observation_loan">Observaciones</label>
+                                <textarea class="form-control" id="si_observation_loan" name="si_observation_loan"></textarea>
+                            </div>
+                        </div>
+                        <div class="text-center pt-4">
+                            <button class="btn btn-primary w-auto">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form> 
+    </div>
+</div>
+<script>
+    function after200(data){
+        console.log(data);
+        // $.ajax({
+        //     url: '',
+        //     type: POST,
+        //     data:JSON.stringify(data),
+        //     contentType: "application/json",
+        //     crossDomain: true,
+        //     success: function(data) {
+        //         console.log("Exito-WP");
+        //     },  
+        //     complete:function(){
+        //         console.log("Complete-WP");
+        //     },
+        //     error: function(data, status, error) {
+        //         console.log("Error-WP");
+        //     }
+        // });
+        loading.hide();
+        $.toast({
+            heading: 'Resultado OK!',
+            text: 'El siniestro fue creado correctamente.',
+            position: 'top-right',
+            icon: 'success',
+            hideAfter: 5000, 
+            stack: 6
+        });
+        $("form.sendToApi").trigger("reset");
+    }
+    $(document).ready(function() {
+        
+    } );
+</script>

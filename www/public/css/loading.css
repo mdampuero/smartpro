@@ -1,7 +1,6 @@
 
   
   div.loading{
-      display: none;
     z-index: 800000;
     position: fixed;
     top: 0;

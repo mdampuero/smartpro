@@ -6,9 +6,9 @@
  * E-Mail: mdampuero@gmail.com
  */
 
-require_once 'Productors.php';
+require_once 'Sinister.php';
 
-class Api_ProductorsController extends Zend_Rest_Controller {
+class Api_SinistersController extends Zend_Rest_Controller {
 
     public function init() {
         $this->_helper->layout->disableLayout();
@@ -28,7 +28,7 @@ class Api_ProductorsController extends Zend_Rest_Controller {
     }
 
     public function indexAction() {
-        $model = new Model_DBTable_Productors();
+        $model = new Model_DBTable_Sinister();
         $this->getResponse()->setBody($this->_helper->json([
             'result'=>true,
             'recordsTotal'=>$model->total(),
@@ -40,7 +40,7 @@ class Api_ProductorsController extends Zend_Rest_Controller {
     }
 
     public function getAction(){
-        $model = new Model_DBTable_Productors();
+        $model = new Model_DBTable_Sinister();
         if(!$data=$model->get($this->_request->getParam('id')))
             $this->getResponse()->setHttpResponseCode(404);
         $this->getResponse()->setBody($this->_helper->json($data));
@@ -48,7 +48,7 @@ class Api_ProductorsController extends Zend_Rest_Controller {
 
     public function postAction(){
         try{
-            $model = new Model_DBTable_Productors();
+            $model = new Model_DBTable_Sinister();
             $this->getResponse()->setBody($this->_helper->json($model->save(json_decode(file_get_contents('php://input'),true))));
         }catch (Exception $e) {
             $this->getResponse()->setHttpResponseCode($e->getCode());
@@ -59,25 +59,8 @@ class Api_ProductorsController extends Zend_Rest_Controller {
         }
     }
 
-    public function loginAction(){
-        $model = new Model_DBTable_Productors();
-        $user=$model->login(json_decode(file_get_contents('php://input'),true));
-        if($user){
-            $this->_helper->Login->loginInPublic($user);
-            $this->getResponse()->setHttpResponseCode(200);
-        }
-        else
-            $this->getResponse()->setHttpResponseCode(404);
-        $this->getResponse()->setBody($this->_helper->json([]));
-    }
-    
-    public function logoutAction(){
-        $this->_helper->Login->logOutPublic();
-        $this->getResponse()->setBody($this->_helper->json([]));
-    }
-
     public function deleteAction() {
-        $model = new Model_DBTable_Productors();
+        $model = new Model_DBTable_Sinister();
         $model->deleteSoft($this->_request->getParam('id'));
         $this->getResponse()->setBody($this->_helper->json('OK'));
     }

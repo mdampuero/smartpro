@@ -29,6 +29,7 @@ class Admin_ProviderController extends Zend_Controller_Action {
             $this->fields = array(
                 array('field' => 'pr_id', 'label' => 'ID', 'list' => true, 'class' => 'id', 'order' => true),
                 array('field' => 'pr_name', 'label' => 'Nombre', 'required' => 'required', 'search' => true, 'order' => true, 'list' => true),
+                array('field' => 'pr_email', 'label' => 'Email', 'required' => 'required|email', 'search' => true, 'order' => true, 'list' => true),
                 array('field' => 'pr_observation', 'label' => 'Observaciones', 'search' => true, 'type' => 'textarea', 'html'=>true),
             );
             $this->view->fields = $this->fields;
