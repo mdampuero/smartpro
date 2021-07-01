@@ -29,6 +29,8 @@ class IndexController extends BaseController {
         $company = new Model_DBTable_Company();
         $this->view->states=$state->listAll();
         $this->view->companies=$company->listAll();
+        $config = Zend_Controller_Front::getInstance()->getParam('bootstrap');
+        $this->view->apiWP = $config->getOption('apiWP');
     }
     
     public function siniestroAction() {

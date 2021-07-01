@@ -1,0 +1,15 @@
+{
+    "siniestro": "123456",
+    "productos": [
+        {
+            "sku":"123",
+            "descripcion":"Producto 1",
+            "cantidad":2
+        },
+        {
+            "sku":"456",
+            "descripcion":"Producto 2",
+            "cantidad":1
+        }
+    ]
+}

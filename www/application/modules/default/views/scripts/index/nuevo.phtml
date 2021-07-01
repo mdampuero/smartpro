@@ -153,32 +153,43 @@
 </div>
 <script>
     function after200(data){
-        console.log(data);
-        // $.ajax({
-        //     url: '',
-        //     type: POST,
-        //     data:JSON.stringify(data),
-        //     contentType: "application/json",
-        //     crossDomain: true,
-        //     success: function(data) {
-        //         console.log("Exito-WP");
-        //     },  
-        //     complete:function(){
-        //         console.log("Complete-WP");
-        //     },
-        //     error: function(data, status, error) {
-        //         console.log("Error-WP");
-        //     }
-        // });
-        loading.hide();
-        $.toast({
-            heading: 'Resultado OK!',
-            text: 'El siniestro fue creado correctamente.',
-            position: 'top-right',
-            icon: 'success',
-            hideAfter: 5000, 
-            stack: 6
+        <?php if(!empty($this->apiWP["user"])):?>
+        $.ajax({
+            url: '<?php echo $this->apiWP["user"];?>',
+            type: 'POST',
+            data:JSON.stringify(data),
+            contentType: "application/json",
+            crossDomain: true,
+            success: function(data) {
+                loading.hide();
+                $.toast({
+                    heading: 'Resultado OK!',
+                    text: 'El siniestro fue creado correctamente.',
+                    position: 'top-right',
+                    icon: 'success',
+                    hideAfter: 5000, 
+                    stack: 6
+                });
+            },  
+            complete:function(){
+                loading.hide();
+            },
+            error: function(data, status, error) {
+                loading.hide();
+            }
         });
+        <?php else:?>
+            loading.hide();
+            $.toast({
+                heading: 'Resultado OK!',
+                text: 'El siniestro fue creado correctamente.',
+                position: 'top-right',
+                icon: 'success',
+                hideAfter: 5000, 
+                stack: 6
+            });
+        <?php endif; ?>
+        
         $("form.sendToApi").trigger("reset");
     }
     $(document).ready(function() {
