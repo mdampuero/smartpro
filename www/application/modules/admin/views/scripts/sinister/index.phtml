@@ -25,6 +25,7 @@
                 <th><input type="checkbox" id="select_all"/></th>
                 <th><a href='<?php echo $this->url(array('sort' => 'si_id', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>ID</a></th>
                 <th><a href='<?php echo $this->url(array('sort' => 'si_number', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Nº Siniestro</a></th>
+                <th class="text-right"><a href='<?php echo $this->url(array('sort' => 'si_amount', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Monto Asignado</a></th>
                 <th><a href='<?php echo $this->url(array('sort' => 'si_date', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>F.Ingreso</a></th>
                 <th><a href='<?php echo $this->url(array('sort' => 'si_days', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Días</a></th>
                 <th><a href='<?php echo $this->url(array('sort' => 'co_name', 'order' => ($this->parameters["order"] == "asc") ? 'desc' : 'asc')) ?>'>Compañía</a></th>
@@ -53,6 +54,7 @@
                         </td>
                         <td><b><?php echo $result['si_id'] ?></b></td>
                         <td class="nowrap"><?php echo $result['si_number'] ?></td>
+                        <td class="text-right nowrap"><b>$ <?php echo number_format($result["si_amount"],0,',','.') ?></b></td>
                         <td><?php echo invertDate($result['si_date'], '-') ?></td>
                         <td class="text-center"><?php echo $result['si_days'] ?></td>
                         

@@ -45,7 +45,7 @@ class Admin_SinisterController extends Zend_Controller_Action {
             $this->fields = array(
                 array('field' => 'si_id', 'label' => 'ID', 'list' => true, 'class' => 'id', 'order' => true),
                 array('field' => 'si_number', 'label' => 'Nº Siniestro', 'required' => 'required', 'search' => true, 'order' => true, 'list' => true,'attr'=>'maxlength="50"'),
-                array('field' => 'br_name', 'label' => 'Marca', 'notdisplay' => true, 'notsave' => true, 'list' => true, 'search' => true, 'order' => true),
+                array('field' => 'si_amount', 'label' => 'Monto Asignado', 'notdisplay' => false,'required' => 'required', 'notsave' => false, 'list' => true, 'search' => true, 'order' => true),
                 array('field' => 'mo_name', 'label' => 'Modelo', 'notdisplay' => true, 'notsave' => true, 'list' => true, 'search' => true, 'order' => true),
                 array('field' => 'si_date', 'label' => 'Fecha de Ingreso', 'required' => 'required', 'search' => true, 'order' => true, 'list' => true, 'type' => 'date', 'calendar' => true),
                 array('field' => 'si_days', 'label' => 'Días', 'notdisplay' => true, 'notsave' => true, 'list' => true, 'search' => false, 'order' => true),
@@ -126,7 +126,6 @@ class Admin_SinisterController extends Zend_Controller_Action {
 
     public function indexAction() {
         try {
-            
             $statusArray=$this->model->getStatus();
             $this->view->status=$statusArray;
             foreach ($statusArray as $key => $label)

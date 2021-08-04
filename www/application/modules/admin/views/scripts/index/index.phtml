@@ -17,6 +17,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nº Siniestro</th>
+                    <th class="text-right">Monto</th>
                     <th>F.Ingreso</th>
                     <th class="text-center">Días</th>
                     <th>Compañía</th>
@@ -28,6 +29,7 @@
                     <tr onclick="location.href='<?php echo $this->url(array('controller' => 'sinister', 'action' => 'detail', 'id' => $order["si_id"])); ?>'">
                         <td><b> #<?php echo $order["si_id"] ?></b></td>
                         <td><?php echo $order["si_number"] ?></td>
+                        <td class="text-right"><b>$ <?php echo number_format($order["si_amount"],0,',','.') ?></b></td>
                         <td><?php echo date('d/m/Y', strtotime($order["si_date"])) ;?></td>
                         <td class="text-center"><?php echo $order['si_days'] ?></td>
                         <td><?php echo $order["co_name"] ?></td>

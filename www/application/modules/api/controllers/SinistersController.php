@@ -7,6 +7,7 @@
  */
 
 require_once 'Sinister.php';
+require_once 'Log.php';
 
 class Api_SinistersController extends Zend_Rest_Controller {
 

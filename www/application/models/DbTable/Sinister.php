@@ -338,7 +338,7 @@ class Model_DBTable_Sinister extends Zend_Db_Table_Abstract {
     public function save($body){
         try{        
             $this->dataIsValid($body);
-            $si_di=(int)$body['si_di'];
+            $si_id=(int)$body['si_id'];
             $dateArray=explode("/",$body["si_date"]);
             $dateEn=$dateArray[2].'-'.$dateArray[1].'-'.$dateArray[0];
             $data=[
@@ -361,18 +361,19 @@ class Model_DBTable_Sinister extends Zend_Db_Table_Abstract {
                 "si_observation_loan"=>$body["si_observation_loan"],
                 "si_data_complete"=>1,
             ];
-            if($si_di==0){
+            if($si_id==0){
                 $data["si_created"]=time();
                 $data["si_modified"]=time();
                 $data["si_deleted"]=0;
                 $data["si_status"]=1;
-                $si_di=$this->insert($data);
-                $data=$this->get($si_di);
+                $si_id=$this->insert($data);
+                $data=$this->get($si_id);
                 $data=$this->translate($data);
+                $this->generateQR($si_id);
             }else{
                 $data["si_modified"]=time();
-                $this->update($data,"si_di={$si_di}");
-                $data=$this->get($si_di);
+                $this->update($data,"si_id={$si_id}");
+                $data=$this->get($si_id);
             }
             return $data;
         }catch (Exception $e) {
@@ -383,6 +384,12 @@ class Model_DBTable_Sinister extends Zend_Db_Table_Abstract {
                 throw new Exception(json_encode([$e->getMessage()],true),500);
         }
     }
+
+    public function generateQR($sinisterId){
+        $qr = Zend_Controller_Action_HelperBroker::getStaticHelper('Qr');
+        $data["si_qr"]=$qr->generate($sinisterId);
+        $this->update($data,"si_id={$sinisterId}");
+    }
     public function addProduct($body){
         try{      
             $sinisterAccesoryModel = new Model_DBTable_Sinisteraccesory();  
@@ -391,10 +398,15 @@ class Model_DBTable_Sinister extends Zend_Db_Table_Abstract {
             $provider=$providerModel->get(1); 
             
             $sinister=$this->getByNumber($body["siniestro"]);
+            if(!$sinister)
+                throw new Exception(json_encode([[
+                    "property"=>"siniestro",
+                    "message"=>"No se encontró ningún siniestro con el número ".$body["siniestro"]
+                ]]),400);
             if(key_exists('productos',$body) || !empty($body["productos"])){
                 foreach($body['productos'] as $producto){
                     if(!$accesory=$accesoryModel->getByCode($producto["sku"])){
-                        $accesory=$accesoryModel->add(['ac_name'=>$producto['descripcion'],'ac_code'=>$producto['sku']]);
+                        $accesory["ac_id"]=$accesoryModel->add(['ac_name'=>$producto['descripcion'],'ac_code'=>$producto['sku']]);
                     }else{
                         $accesoryModel->edit(['ac_name'=>$producto['descripcion'],'ac_deleted'=>0],$accesory["ac_id"]);
                         $accesory["ac_name"]=$producto['descripcion'];
@@ -410,9 +422,14 @@ class Model_DBTable_Sinister extends Zend_Db_Table_Abstract {
                 }
                 $this->edit(["si_status"=>2],$sinister["si_id"]);
                 return [
-                        'products'=>$sinisterAccesoryModel->getBySinister($sinister["si_id"]),
-                        'sinister'=>$this->get($sinister["si_id"])
-                    ];
+                    'products'=>$sinisterAccesoryModel->getBySinister($sinister["si_id"]),
+                    'sinister'=>$this->get($sinister["si_id"])
+                ];
+            }else{
+                throw new Exception(json_encode([[
+                    "property"=>"productos",
+                    "message"=>"La lista de productos no es válida"
+                ]]),400);
             }
             return null;
         }catch (Exception $e) {

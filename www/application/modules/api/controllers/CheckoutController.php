@@ -31,7 +31,9 @@ class Api_CheckoutController extends Zend_Rest_Controller {
         try{
             $model = new Model_DBTable_Sinister();
             $this->_mail = $this->_helper->Mail;
-            $data=$model->addProduct(json_decode(file_get_contents('php://input'),true));
+            $body=file_get_contents('php://input');
+            Zend_Controller_Action_HelperBroker::getStaticHelper('Log')->setLog(array('lo_request'=>'','lo_description'=>'Checkout->POST','lo_data'=>$body));
+            $data=$model->addProduct(json_decode($body,true));
 
             /** ENVÍO DE PEDIDO AL PROVEEDOR*/
             $this->view->products=$data['products'];
