@@ -53,7 +53,8 @@ class Admin_SinisterController extends Zend_Controller_Action {
                 array('field' => 'si_pr_id', 'label' => 'Productor', 'required' => 'required', 'type' => 'combo', 'data' => $this->productors->listAll(), 'option-empy' => 'Seleccione un Productor'),
                 array('field' => 'co_name', 'label' => 'Compañia', 'notdisplay' => true, 'notsave' => true, 'list' => true, 'search' => true, 'order' => true),
                 array('field' => 'si_fullname', 'label' => 'Asegurado', 'required' => 'required', 'search' => true, 'order' => true, 'list' => true),
-                array('field' => 'si_email', 'label' => 'E-Mail', 'required' => '', 'search' => true, 'order' => true, 'list' => false),
+                array('field' => 'si_document', 'label' => 'DNI', 'required' => 'required', 'search' => true, 'order' => true, 'list' => true),
+                array('field' => 'si_email', 'label' => 'E-Mail', 'required' => 'required|email', 'search' => true, 'order' => true, 'list' => false),
                 array('field' => 'si_phone', 'label' => 'Teléfono', 'required' => '', 'search' => true, 'order' => true, 'list' => false),
                 array('field' => 'si_domain','notdisplay' => true, 'label' => 'Dominio', 'search' => true, 'order' => true, 'list' => true,'attr'=>'maxlength="8"'),
                 array('field' => 'status_label', 'label' => 'Estado', 'notdisplay' => true, 'notsave' => true, 'list' => true,  'order' => true),
@@ -341,8 +342,9 @@ class Admin_SinisterController extends Zend_Controller_Action {
                             'act_ad_id' => $this->view->loginInfo["ad_id"]));
                     }
                 }
-                $this->_helper->flashMessenger->addMessage(array('type' => 'success', 'message' => MESSAGE_NEW));
-                $this->_helper->Redirector->gotoSimple('add', null, null);
+
+                $this->_helper->flashMessenger->addMessage(array('type' => 'success', 'message' => "Siniestro creado correctamente"));
+                $this->_helper->Redirector->gotoSimple('create', null, null, array('id' => $sinister_id));
             }           
             $this->view->companies = $this->company->showAll();
             $this->view->providers = $this->provider->showAll();
@@ -353,6 +355,50 @@ class Admin_SinisterController extends Zend_Controller_Action {
         } catch (Zend_Exception $exc) {
             $this->_helper->flashMessenger->addMessage(array('type' => 'danger', 'message' => $exc->getMessage(), 'data' => $this->getRequest()->getPost()));
             $this->_helper->Redirector->gotoSimple('add');
+        }
+    }
+
+    private function create(){
+        $config = Zend_Controller_Front::getInstance()->getParam('bootstrap');
+        $apiWP = $config->getOption('apiWP');
+        if($apiWP){
+            $ch = curl_init();
+            $data=[
+                "siniestro"=>"44554588",
+                "compania"=>"BERNARDINO RIVADAVIA",
+                "fecha"=>"2021-06-30",
+                "monto"=>"850000",
+                "nombre_completo"=>"Orberto Perez",
+                "documento"=>"25123456",
+                "email"=>"email@host.com",
+                "telefono"=>"261699554994",
+                "provincia"=>"Mendoza",
+                "departamento"=>"Guaymalén",
+                "codigo_postal"=>"5525",
+                "calle"=>"Alguna calle",
+                "numero"=>"123",
+                "depto"=>"A1",
+                "piso"=>"2",
+                "observaciones"=>"Alguna observacion"
+            ];
+            echo '<pre>';
+            print_r($data);
+            echo '</pre>';
+            // exit();
+            curl_setopt($ch, CURLOPT_URL,$apiWP);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+            $server_output = curl_exec($ch);
+
+            curl_close ($ch);
+
+            // Further processing ...
+            echo $server_output;
+            exit();
+        }else{
+            return ['result'=>false,'message'=>'No existe la url del servicio'];
         }
     }
 
@@ -577,13 +623,24 @@ class Admin_SinisterController extends Zend_Controller_Action {
 
     public function deleteAction() {
         try {
-
             $this->_helper->viewRenderer->setNoRender(TRUE);
             if ($this->getRequest()->isPost()) {
                 $this->model->delete_slow($this->getRequest()->getPost('id'));
             }
         } catch (Zend_Exception $exc) {
             exit($exc->getMessage());
+        }
+    }
+
+    public function createAction() {
+        try {
+            $data = $this->model->get($this->view->parameters["id"]);
+            $this->view->data=json_encode($this->model->translate($data));
+            $config = Zend_Controller_Front::getInstance()->getParam('bootstrap');
+            $this->view->apiWP = $config->getOption('apiWP');
+        } catch (Zend_Exception $exc) {
+            $this->_helper->flashMessenger->addMessage(array('type' => 'danger', 'message' => $exc->getMessage()));
+            $this->_helper->Redirector->gotoSimple('index');
         }
     }
 

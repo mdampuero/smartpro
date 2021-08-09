@@ -114,7 +114,7 @@ class Model_DBTable_Sinister extends Zend_Db_Table_Abstract {
         $select = $this->select();
         $select->from(array($this->_name), array("si_id"));
         $select->setIntegrityCheck(false);
-        $select->where('si_number = "' . $si_number.'" AND si_domain="'.$si_domain.'" AND si_id<>'.$si_id.' AND si_deleted=0');
+        $select->where('si_number = "' . $si_number.'" AND si_id<>'.$si_id.' AND si_deleted=0');
         $row = $this->fetchRow($select);
         $url=$this->view->url(array('action'=>'detail','id'=>2));
         $link=null;
@@ -122,7 +122,7 @@ class Model_DBTable_Sinister extends Zend_Db_Table_Abstract {
             $link="haga click <a href='".$url."'>AQUÍ</a> para verlo.";
         endif;
         if ($row) 
-            throw new Zend_Controller_Action_Exception("Ya existe un Siniestro cargado con el Nº $si_number y Dominio $si_domain.".$link);
+            throw new Zend_Controller_Action_Exception("Ya existe un Siniestro cargado con el Nº $si_number .".$link);
         return FALSE;
     }
     

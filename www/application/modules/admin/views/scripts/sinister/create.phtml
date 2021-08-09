@@ -1,0 +1,76 @@
+<div class="clearfix"></div>
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Creando usuario en el E-Commerce
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="form-group col-lg-12">
+                <div class="alert alert-info" id="waiting">
+                    Creando usuario, por favor espere...
+                </div>
+                <div class="alert alert-success" id="success" style="display:none;">
+                    Resultado: <i id="resultSuccess"></i>
+                </div>
+                <div class="alert alert-danger" id="danger" style="display:none;">
+                    Resultado: <i id="resultDanger"></i>
+                </div>
+                <div class="text-center" id="continue" style="display:none;">
+                    <button class="btn btn-info" onclick="location.href='<?php echo $this->url(['module'=>'admin','controller'=>'sinister','action'=>'index']);?>'">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<script>
+    var data=<?php echo $this->data;?>;
+    $(function(){
+        <?php if(!empty($this->apiWP["user"])):?>
+        $.ajax({
+            url: '<?php echo $this->apiWP["user"];?>',
+            type: 'POST',
+            data:JSON.stringify(data),
+            contentType: "application/json",
+            crossDomain: true,
+            success: function(data) {
+                $("#waiting").hide();
+                $("#success").show();
+                $("#continue").show();
+                $("#resultSuccess").html(data);
+                $.toast({
+                    heading: 'Resultado OK!',
+                    text: 'El usuario fue creado correctamente.',
+                    position: 'top-right',
+                    icon: 'success',
+                    hideAfter: 5000, 
+                    stack: 6
+                });
+            },  
+            complete:function(){
+                //$("#waiting")
+                //loading.hide();
+            },
+            error: function(data, status, error) {
+               // loading.hide();
+               $("#waiting").hide();
+               $("#danger").show();
+               $("#continue").show();
+               $("#resultDanger").html(data.responseText);
+               $.toast({
+                    heading: 'Error',
+                    text: 'Ocurrió un error al intentar crear el usuario',
+                    position: 'top-right',
+                    icon: 'error',
+                    hideAfter: 5000, 
+                    stack: 6
+                });
+               console.log(data);
+            }
+        });
+        <?php else:?>
+            location.href="<?php echo $this->url(['module'=>'admin','controller'=>'sinister','action'=>'index']);?>";
+        <?php endif; ?>
+    });
+</script>
